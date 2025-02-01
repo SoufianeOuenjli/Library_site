@@ -3,6 +3,8 @@ import Book from './Book'
 import Search from './Search'
 import Spell from './Spell'
 import Character from './Character'
+import store from './Store'
+import { Provider } from 'react-redux'
 
 const Books = () => {
     const [books, setBooks] = useState([])
@@ -60,7 +62,9 @@ const Books = () => {
                 <div className="row row-cols-1 row-cols-md-3 g-4">
                     {searchedBook.map((book) => (
                         <div className="col d-flex justify-content-center" key={book.id}>
+                            <Provider store={store}>
                             <Book book={book} />
+                            </Provider>
                         </div>
                     ))}
                 </div>

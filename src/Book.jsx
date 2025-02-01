@@ -1,10 +1,20 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { setBooks } from './BookSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const Book = ({book:{cover, title, pages, releaseDate, description}}) => {
   const [isLicked, setIsLicked] = useState(false)
+
+  const dispatch = useDispatch()
+
+  const handleClick = () => {
+    setIsLicked(!isLicked)
+    dispatch(setBooks())
+  }
+
     // console.log(props)
   return (
     <div
@@ -34,7 +44,8 @@ const Book = ({book:{cover, title, pages, releaseDate, description}}) => {
         <h5 className="card-title text-primary fw-bold">{title}</h5>
         <p className="card-text text-muted">{`${pages} pages · Released: ${releaseDate}`}</p>
         {/* <p className="text-secondary small">{description.slice(0, 80)}...</p> */}
-        <div className="d-flex justify-content-end align-items-center mt-auto" style={{position: "absolute", bottom: 10, right: 10, width: "100%"}}>   
+        <div className="d-flex justify-content-between align-items-center mt-auto" style={{position: "absolute", bottom: 10, right: 10, width: "100%"}}>   
+          <button className='btn  btn-sm btn-primary mx-3' onClick={() => handleClick()}>Read</button>
           <FontAwesomeIcon icon={faHeart} className={isLicked ? "text-danger" : "text-gray"} style={{ fontSize: "1.5em" }}  onClick={() => setIsLicked(!isLicked)}/>
         </div>
       </div>
